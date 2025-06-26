@@ -1,0 +1,80 @@
+{
+    "Lung Cancer": {
+        "Normal": {
+            "description": "Lungs are healthy with no signs of abnormalities, infections, or tumors.",
+            "guidance": "No further action is required."
+        },
+        "Benign": {
+            "description": "A non-cancerous growth or lesion in the lung.",
+            "guidance": "While not harmful, it may require monitoring."
+        },
+        "Malignant": {
+            "description": "Malignant lung cancer is the uncontrolled growth of abnormal cells in the lungs.",
+            "guidance": "Consult with an oncologist for a detailed diagnosis and treatment plan."
+        }
+    },
+    "Skin Cancer": {
+        "Benign": {
+            "description": "A benign skin lesion, such as a mole.",
+            "guidance": "Regular monitoring is recommended, but no immediate treatment is necessary."
+        },
+        "Malignant": {
+            "description": "Malignant melanoma is a type of skin cancer that begins in the melanocytes.",
+            "guidance": "Immediate consultation with a dermatologist or oncologist is recommended."
+        }
+    },
+    "Blood Cancer": {
+        "Benign": {
+            "description": "The blood cells are normal and show no signs of malignant transformation.",
+            "guidance": "No further action is required."
+        },
+        "[Malignant] early Pre-B": {
+            "description": "Early-stage leukemia with abnormal Pre-B cells beginning to show growth.",
+            "guidance": "Consult a hematologist for further evaluation and treatment options."
+        },
+        "[Malignant] Pre-B": {
+            "description": "An intermediate stage of leukemia where Pre-B cells have begun to spread into the bloodstream.",
+            "guidance": "Immediate intervention and a treatment plan should be discussed with a hematologist."
+        },
+        "[Malignant] Pro-B": {
+            "description": "An advanced stage of leukemia with aggressive proliferation of malignant B cells.",
+            "guidance": "Consult with a hematologist-oncologist to begin treatment immediately."
+        }
+    },
+    "Kidney Cancer": {
+        "Cyst": {
+            "description": "A fluid-filled sac that forms on the kidney, usually benign.",
+            "guidance": "Requires monitoring if they grow or cause symptoms."
+        },
+        "Normal": {
+            "description": "The kidneys are healthy, with no signs of cysts, stones, or tumors.",
+            "guidance": "No further action is required."
+        },
+        "Stone": {
+            "description": "A hard mass made of minerals that forms in the kidney.",
+            "guidance": "Treatment options may include medication, hydration, or surgical removal."
+        },
+        "Tumor": {
+            "description": "A mass in the kidney that can be benign or malignant.",
+            "guidance": "Immediate consultation with a nephrologist or oncologist is recommended."
+        }
+    },
+    "Brain Cancer": {
+        "Glioma": {
+            "description": "Gliomas are tumors that arise from glial cells in the brain or spinal cord.",
+            "guidance": "Consult with a neurologist or oncologist for further diagnosis."
+        },
+        "Meningioma": {
+            "description": "A meningioma is a tumor that arises from the meninges.",
+            "guidance": "While often benign, further tests are recommended to assess treatment options."
+        },
+        "Pituitary": {
+            "description": "Pituitary tumors affect the pituitary gland, which controls hormones.",
+            "guidance": "Consult an endocrinologist or neurosurgeon for further analysis."
+        },
+        "No Tumor": {
+            "description": "No tumors or abnormal growths are present in the brain.",
+            "guidance": "No further action is required."
+        }
+    }
+}

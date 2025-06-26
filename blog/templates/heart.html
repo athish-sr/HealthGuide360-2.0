@@ -1,0 +1,159 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title> HealthCare360 </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{%static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{%static 'css/responsive.css'%}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+        .form-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .form-row {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .form-group {
+            flex: 0 1 calc(50% - 10px);
+        }
+        input,select{
+            width:100%;
+            height:40px;
+        }
+        .section1{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero_area">
+
+        <div class="hero_bg_box">
+          <div class="bg_img_box">
+            <img src="{%static 'images/hero-bg.png'%}" alt="">
+          </div>
+        </div>
+    
+        <!-- header section strats -->
+        {% include "header.html" %}
+<section class="section1">
+    <div class="container mt-5">
+        <h2 class="mb-4">Heart Disease Predictor
+        </h2>
+        <form method="post" class="form-flex">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    {{ form.age }}
+                </div>
+                <div class="form-group">
+                    <label for="sex">Sex</label>
+                    {{ form.sex }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="chest_pain">Chest Pain Type</label>
+                    {{ form.chest_pain }}
+                </div>
+                <div class="form-group">
+                    <label for="bp">Blood Pressure (BP)</label>
+                    {{ form.bp }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cholesterol">Cholesterol</label>
+                    {{ form.cholesterol }}
+                </div>
+                <div class="form-group">
+                    <label for="fbs">Fasting Blood Sugar (FBS over 120)</label>
+                    {{ form.fbs }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ekg">EKG Results</label>
+                    {{ form.ekg }}
+                </div>
+                <div class="form-group">
+                    <label for="max_hr">Maximum Heart Rate (Max HR)</label>
+                    {{ form.max_hr }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="exercise_angina">Exercise Induced Angina</label>
+                    {{ form.exercise_angina }}
+                </div>
+                <div class="form-group">
+                    <label for="st_depression">ST Depression</label>
+                    {{ form.st_depression }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="slope">Slope of ST Segment</label>
+                    {{ form.slope }}
+                </div>
+                <div class="form-group">
+                    <label for="num_vessels">Number of Vessels Fluoroscopy</label>
+                    {{ form.num_vessels }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="thallium">Thallium Stress Test</label>
+                    {{ form.thallium }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+  </section>
+</body>
+</html>

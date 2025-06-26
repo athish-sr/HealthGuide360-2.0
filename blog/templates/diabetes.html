@@ -1,0 +1,130 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title> HealthCare360 </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{%static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{%static 'css/responsive.css'%}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+        .form-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .form-row {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .form-group {
+            flex: 0 1 calc(50% - 10px);
+        }
+        input,select{
+            width:100%;
+            height:40px;
+        }
+        .section1{
+            background-color: white;
+            height:646px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero_area">
+
+        <div class="hero_bg_box">
+          <div class="bg_img_box">
+            <img src="{%static 'images/hero-bg.png'%}" alt="">
+          </div>
+        </div>
+    
+        <!-- header section strats -->
+        {% include "header.html" %}
+<section class="section1">
+    <div class="container mt-5">
+        <h2 class="mb-4">Diabetes Checker</h2>
+        <form method="post" class="form-flex">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.pregnancies.id_for_label }}">Pregnancies</label>
+                    {{ form.pregnancies }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.glucose.id_for_label }}">Glucose</label>
+                    {{ form.glucose }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.blood_pressure.id_for_label }}">Blood Pressure</label>
+                    {{ form.blood_pressure }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.skin_thickness.id_for_label }}">Skin Thickness</label>
+                    {{ form.skin_thickness }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.insulin.id_for_label }}">Insulin</label>
+                    {{ form.insulin }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.bmi.id_for_label }}">BMI</label>
+                    {{ form.bmi }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.diabetes_pedigree_function.id_for_label }}">Diabetes Pedigree Function</label>
+                    {{ form.diabetes_pedigree_function }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.age.id_for_label }}">Age</label>
+                    {{ form.age }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,245 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title> HealthCare360 </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{%static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{%static 'css/responsive.css'%}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
+
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <div class="bg_img_box">
+        <img src="{%static 'images/hero-bg.png'%}" alt="">
+      </div>
+    </div>
+
+    <!-- header section strats -->
+    {% include "header.html" %}
+    <!-- end header section -->
+  </div>
+
+
+  <!-- Hospital section -->
+
+  <section class='hospital-section'>
+    <div id="map"></div>
+    <div id="hospital-details"></div>
+  </section>
+     
+
+  <!-- end Hospital section -->
+
+  <!-- info section -->
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <!-- Leaflet Routing Machine JS -->
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+  <!-- GraphHopper Plugin (Older Version) -->
+  <script src="https://www.liedman.net/lrm-graphhopper/dist/lrm-graphhopper-1.2.0.js"></script>
+
+  {%include 'info_section.html'%}
+  {% comment %} <script src="{% static 'js/hospital-nearby-scripts.js' %}" defer></script>  {% endcomment %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var map = L.map('map');
+      var hospitals = [];
+      var detailsPanel = document.getElementById('hospital-details');
+      var userLat, userLng;
+      var routeControl = L.Routing.control({
+    waypoints: [],
+    router: L.Routing.graphHopper('1561a026-58fe-4295-974c-97054d0d5225', {
+        urlParameters: {
+            vehicle: 'car'
+        }
+    }),
+    routeWhileDragging: true,
+    createMarker: function() { return null; } // Disable markers
+    }).on('routingerror', function(e) {
+    console.error('Routing error:', e);
+    alert('Routing failed. Please check your API key, network connection, or rate limit.');
+    }).addTo(map);
+  
+      // Define custom icons
+      var userIcon = L.icon({
+          iconUrl: 'https://static.vecteezy.com/system/resources/previews/017/178/337/non_2x/location-map-marker-icon-symbol-on-transparent-background-free-png.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [0, -41]
+      });
+  
+      var hospitalIcon = L.icon({
+          iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [0, -41]
+      });
+  
+      function initMap(lat, lng) {
+          userLat = lat;
+          userLng = lng;
+  
+          map.setView([lat, lng],13);
+  
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: ''
+          }).addTo(map);
+  
+          L.marker([lat, lng], {icon: userIcon}).addTo(map)
+              .bindPopup('Your Location')
+              .openPopup();
+  
+          fetchHospitals(lat, lng);
+      }
+  
+      function fetchHospitals(lat, lng) {
+          var radius = 5000;  // Radius in meters
+          var overpassUrl = `http://overpass-api.de/api/interpreter?data=[out:json];(node["amenity"="hospital"](around:${radius},${lat},${lng}););out body;`;
+  
+          fetch(overpassUrl)
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+              })
+              .then(data => {
+                  console.log('API Response:', data);
+                  if (data.elements) {
+                      hospitals = data.elements.map(element => ({
+                          name: element.tags.name || 'Unnamed',
+                          address: (element.tags['addr:full'] || '') + ' ' + (element.tags['addr:district'] || '') + ' ' + (element.tags['addr:postcode'] || ''),
+                          latitude: element.lat,
+                          longitude: element.lon,
+                          website: element.tags.website || 'Not provided',
+                          phone: element.tags['contact:phone'] || 'Not provided'
+                      }));
+  
+                      // Sort hospitals by distance
+                      hospitals.sort((a, b) => calculateDistance(userLat, userLng, a.latitude, a.longitude) - calculateDistance(userLat, userLng, b.latitude, b.longitude));
+  
+                      displayHospitals();
+                  } else {
+                      console.error('No elements found in API response');
+                  }
+              })
+              .catch(error => {
+                  console.error('Fetch error:', error);
+                  alert('Error fetching hospital data. Please try again later.');
+              });
+      }
+  
+      function calculateDistance(lat1, lon1, lat2, lon2) {
+          var R = 6371; // Radius of the earth in km
+          var dLat = toRad(lat2 - lat1);
+          var dLon = toRad(lon2 - lon1);
+          var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                  Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                  Math.sin(dLon / 2) * Math.sin(dLon / 2);
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          var d = R * c; // Distance in km
+          return d * 1000; // Convert to meters
+      }
+  
+      function toRad(deg) {
+          return deg * (Math.PI / 180);
+      }
+  
+      function displayHospitals() {
+          detailsPanel.innerHTML = ''; // Clear previous details
+  
+          if (hospitals.length === 0) {
+              detailsPanel.innerHTML += '<p>No hospitals found.</p>';
+          } else {
+              hospitals.forEach(hospital => {
+                  var markerPosition = [hospital.latitude, hospital.longitude];
+                  var marker = L.marker(markerPosition, {icon: hospitalIcon}).addTo(map);
+                  marker.bindPopup(
+                      `<b>${hospital.name}</b><br>${hospital.address}<br>
+                       Website: <a href="${hospital.website}" target="_blank">${hospital.website}</a><br>
+                       Phone: ${hospital.phone}`
+                  );
+  
+                  var div = document.createElement('div');
+                  div.className = 'hospital-item';
+                  div.innerHTML = `<b>${hospital.name}</b><br>${hospital.address}`;
+                  div.onclick = function() {
+                    // Set the route from the user's location to the hospital
+                    routeControl.setWaypoints([
+                        L.latLng(userLat, userLng),
+                        L.latLng(hospital.latitude, hospital.longitude)
+                    ]);
+                    map.setView(markerPosition, 14);
+                    marker.openPopup();
+                };
+                detailsPanel.appendChild(div);
+              });
+          }
+      }
+  
+      function filterHospitals(query) {
+          var filteredHospitals = hospitals.filter(hospital => 
+              hospital.name.toLowerCase().includes(query.toLowerCase()) ||
+              hospital.address.toLowerCase().includes(query.toLowerCase())
+          );
+          displayHospitals(filteredHospitals);
+      }
+  
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              var userLat = position.coords.latitude;
+              var userLng = position.coords.longitude;
+              initMap(userLat, userLng);
+          }, function() {
+              initMap(11.028227338871933, 77.00487358210663); 
+          });
+      } else {
+          alert('Geolocation is not supported by this browser.');
+          initMap(11.028227338871933, 77.00487358210663);  
+      }
+  });
+</script>
+
+</body>
+
+</html>

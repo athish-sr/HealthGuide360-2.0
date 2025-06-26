@@ -1,0 +1,90 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title> HealthCare360</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{%static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{%static 'css/responsive.css'%}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .result-class {
+        background-color:white;
+        text-align: center;
+        max-width: 100%;
+        max-height: 100%;
+        box-sizing: border-box;
+        height:646px;
+        padding-top:200px;
+    }
+    h1 {
+        margin: 20px 0;
+        font-size: 28px;
+        color: #333;
+    }
+
+    p {
+        font-size: 18px;
+        color: #666;
+    }
+</style>
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <div class="bg_img_box">
+        <img src="{%static 'images/hero-bg.png'%}" alt="">
+      </div>
+    </div>
+    {%include "header.html"%}
+    <div class="result-class">
+        <h1>{{ type }}</h1>
+        {% if details.description %}
+        <p>Description : {{details.description}}</p>
+        {% endif %}
+        <p>Guidance : {{details.guidance}}</p>
+        
+    </div>
+</div>
+
+
+
+</body>
+
+</html>

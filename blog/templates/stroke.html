@@ -1,0 +1,135 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title> HealthCare360 </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{%static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{%static 'css/responsive.css'%}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+        .form-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .form-row {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .form-group {
+            flex: 0 1 calc(50% - 10px);
+        }
+        input,select{
+            width:100%;
+            height:40px;
+        }
+        .section1{
+            background-color: white;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="hero_area">
+
+        <div class="hero_bg_box">
+          <div class="bg_img_box">
+            <img src="{%static 'images/hero-bg.png'%}" alt="">
+          </div>
+        </div>
+    
+        <!-- header section strats -->
+        {% include "header.html" %}
+    <section class="section1">
+  <div class="container mt-5">
+    <h2 class="mb-4">Stroke Predictor</h2>
+    <form method="post" class="form-flex">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.gender.id_for_label }}">Gender:</label>
+                {{ form.gender }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.age.id_for_label }}">Age:</label>
+                {{ form.age }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.hypertension.id_for_label }}">Hypertension:</label>
+                {{ form.hypertension }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.heart_disease.id_for_label }}">Heart Disease:</label>
+                {{ form.heart_disease }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.ever_married.id_for_label }}">Ever Married:</label>
+                {{ form.ever_married }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.work_type.id_for_label }}">Work Type:</label>
+                {{ form.work_type }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.Residence_type.id_for_label }}">Residence Type:</label>
+                {{ form.Residence_type }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.avg_glucose_level.id_for_label }}">Average Glucose Level:</label>
+                {{ form.avg_glucose_level }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.bmi.id_for_label }}">BMI:</label>
+                {{ form.bmi }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.smoking_status.id_for_label }}">Smoking Status:</label>
+                {{ form.smoking_status }}
+            </div>
+        </div>
+        <div class="form-row">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+</section>
+</body>
+</html>

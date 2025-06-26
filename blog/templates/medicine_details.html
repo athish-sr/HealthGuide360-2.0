@@ -1,0 +1,79 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title> HealthCare360 </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{%static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{%static 'css/responsive.css'%}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+        .section1{
+            background-color: white;
+            height:646px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero_area">
+
+        <div class="hero_bg_box">
+          <div class="bg_img_box">
+            <img src="{%static 'images/hero-bg.png'%}" alt="">
+          </div>
+        </div>
+    
+        <!-- header section strats -->
+        {% include "header.html" %}
+<section class="section1">
+  <div class="container" style="margin-top : 40px">
+    <h1>{{ medicine.product_name }}</h1><br>
+    <p><strong>Description:</strong> {{ medicine.medicine_desc }}</p>
+    <p><strong>Salt Composition:</strong> {{ medicine.salt_composition }}</p>
+    {% if medicine.product_price == '' %}
+    <p><strong>Price:</strong> {{ medicine.product_price }}</p>
+    {% endif %}
+    <p><strong>Manufactured By:</strong> {{ medicine.product_manufactured }}</p>
+    <p><strong>Side Effects:</strong> {{ medicine.side_effects }}</p>
+    {% if medicine.drug_interactions != '-'%}
+      <p><strong>Drug Interactions:</strong></p>
+      {%for i in combined %}
+      <ul>
+        &emsp;<strong>Drug:</strong>{{i.0}}<br>
+        &emsp;<strong>Brands:</strong>{{i.1}}<br>
+        &emsp;<strong>Effect:</strong>{{i.2}}<br>
+      </ul>
+      {%endfor%}
+    {% endif %}
+  </div>
+</section>
+</body>
+
+</html>
