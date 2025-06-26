@@ -1,6 +1,9 @@
 TITLE: Health Guide360
+
 SETUP STEPS:
+
 Setting Up a Python Virtual Environment and Django Project with MySQL
+
 Step 1: Navigate to Your Project Directory Open your terminal or command prompt and navigate to your project folder: cd /path/to/your/project
 
 Step 2: Create a Virtual Environment Create a virtual environment named env using the following command: python -m venv env This will create a folder named env that contains your isolated virtual environment.
